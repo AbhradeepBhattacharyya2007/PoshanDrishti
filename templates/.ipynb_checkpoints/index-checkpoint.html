@@ -1,0 +1,473 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PoshanDrishti | Sahi Poshan, Bachpan Roshan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+
+  <!-- Chart.js & jsPDF -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+  <div class="tricolor-bar"></div>
+
+  <div class="app-shell">
+    <!-- Left Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <div class="emblem-badge float-anim">🇮🇳</div>
+        <div>
+          <h2>PoshanDrishti</h2>
+          <span>Anganwadi Child Portal (0–6y)</span>
+        </div>
+      </div>
+
+      <nav class="nav-menu" id="nav-menu">
+        <button class="nav-btn active" data-target="home">🏛️ Portal Home</button>
+        <button class="nav-btn" data-target="analytics">📊 Live Analytics & Registry</button>
+        <button class="nav-btn" data-target="india-map">🗺️ India Regional Map</button>
+        <button class="nav-btn" data-target="assessor">🩺 Child Growth Assessor</button>
+        <button class="nav-btn" data-target="ai-lab">🚀 AI Radar & Simulator</button>
+        <button class="nav-btn" data-target="recipes">🍲 Anganwadi Recipe Bank</button>
+        <button class="nav-btn" data-target="health-card">🪪 Health Cards (PDF)</button>
+        <button class="nav-btn" data-target="chatbot">💬 Poshan Sahayak AI</button>
+      </nav>
+
+      <div class="sidebar-status">
+        <div class="status-pill green"><span class="pulse-dot"></span> Python Flask API: Active</div>
+        <div class="status-pill blue">● Open-Meteo Weather: Live</div>
+        <div class="status-pill orange">● WHO Child Standards: 0–6y</div>
+        <p class="helpline-note">Childline: 1098 • Poshan Helpline: 14408</p>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Official Gov Masthead -->
+      <header class="gov-masthead">
+        <div>
+          <div class="gov-ministry">🇮🇳 INTEGRATED CHILD DEVELOPMENT SERVICES (ICDS) • CHILD NUTRITION MISSION</div>
+          <h1 class="gov-title">POSHANDRISHTI — <span class="hindi-slogan">"Sahi Poshan, Bachpan Roshan"</span></h1>
+          <p class="gov-subtitle">Precision Vision for Every Child's Growth (0–6 Years), Guided by Climate & Care</p>
+        </div>
+        <div class="masthead-badges">
+          <span class="badge-jan">🟠 JAN ANDOLAN • CHILD-EXCLUSIVE</span>
+          <small>Full-Stack Python + Live Telemetry Engine</small>
+        </div>
+      </header>
+
+      <!-- =========================================================
+           VIEW 1: PORTAL HOME
+      ========================================================== -->
+      <section id="view-home" class="view-section active">
+        <div class="hero-banner">
+          <div class="hero-content">
+            <div class="hero-kicker">★ DEDICATED ANGANWADI CHILD NUTRITION INTELLIGENCE ★</div>
+            <h2>Sahi Poshan, Bachpan Roshan</h2>
+            <p>
+              Inspired by the national Poshan Abhiyaan Jan Andolan mission and engineered exclusively for children aged 0–6 years—combining live Indian district weather telemetry, WHO Z-score growth triaging, climate-affordable local recipes, and conversational health card counseling.
+            </p>
+            <div class="hero-actions">
+              <button class="btn-primary" onclick="switchView('assessor')">🩺 Register & Assess a Child</button>
+              <button class="btn-secondary" onclick="switchView('analytics')">📊 View Live Analytics</button>
+              <button class="btn-secondary" onclick="switchView('chatbot')">💬 Talk to Poshan Sahayak</button>
+            </div>
+          </div>
+          <div class="hero-visual-card float-anim">
+            <div class="ring-badge">0–6 YRS</div>
+            <strong>Child-First Triage</strong>
+            <small>WHO Z-Score + 36 States Crop AI</small>
+          </div>
+        </div>
+
+        <div class="kpi-grid">
+          <div class="kpi-card orange-border lift-card">
+            <span class="kpi-label">Registered Anganwadi Kids</span>
+            <strong class="kpi-value" id="kpi-total-kids">18 Children</strong>
+            <small class="kpi-sub" id="kpi-states-sub">Across 16 Indian States & UTs</small>
+          </div>
+          <div class="kpi-card green-border lift-card">
+            <span class="kpi-label">Healthy Growth (Normal)</span>
+            <strong class="kpi-value" id="kpi-normal-kids">10 Kids</strong>
+            <small class="kpi-sub">Z-Score &gt; -2.0 SD</small>
+          </div>
+          <div class="kpi-card gold-border lift-card">
+            <span class="kpi-label">MAM Watchlist (Yellow)</span>
+            <strong class="kpi-value" id="kpi-mam-kids">5 Kids</strong>
+            <small class="kpi-sub">Daily Protein Booster Active</small>
+          </div>
+          <div class="kpi-card red-border lift-card">
+            <span class="kpi-label">SAM Critical Priority (Red)</span>
+            <strong class="kpi-value" id="kpi-sam-kids">3 Kids</strong>
+            <small class="kpi-sub">PHC / NRC Intensive Care</small>
+          </div>
+        </div>
+
+        <h3 class="section-heading">🌟 Portal Architecture & Innovations</h3>
+        <div class="three-col-grid">
+          <div class="glass-card top-orange lift-card">
+            <h4>🩺 1. Instant WHO Z-Score Triage</h4>
+            <p class="card-desc">Evaluates child weight, height, and age against WHO growth curves and links live Open-Meteo district weather to local Indian state crops.</p>
+          </div>
+          <div class="glass-card top-navy lift-card">
+            <h4>📊 2. Live Multi-State Analytics</h4>
+            <p class="card-desc">Interactive Chart.js graphs track triage splits, age-cohort vulnerability, 6-month recovery trajectories, and micronutrient adequacy in real time.</p>
+          </div>
+          <div class="glass-card top-green lift-card">
+            <h4>💬 3. Poshan Sahayak + PDF Cards</h4>
+            <p class="card-desc">Generates print-ready A5 parent health cards and lets workers upload PDF cards into a human-like AI counselor for tailored diet plans.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================================================
+           VIEW 2: LIVE ANALYTICS & ALL-INDIA CHILD REGISTRY
+      ========================================================== -->
+      <section id="view-analytics" class="view-section">
+        <div class="page-header" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+          <div>
+            <h2>📊 Live Anganwadi Nutrition Analytics & Child Registry</h2>
+            <p>Real-time statistics computed by Python from registered multi-state child assessments.</p>
+          </div>
+          <button class="btn-primary" onclick="switchView('assessor')">➕ Add New Child Record</button>
+        </div>
+
+        <div class="two-col-grid">
+          <div class="glass-card top-orange">
+            <h3>🍩 Center-Wide WHO Triage Distribution</h3>
+            <p class="muted-text">Live proportion of Normal, MAM, and SAM children in the registry.</p>
+            <div class="chart-wrapper-sm"><canvas id="triageDoughnutChart"></canvas></div>
+          </div>
+          <div class="glass-card top-navy">
+            <h3>📊 Age-Cohort Vulnerability Breakdown</h3>
+            <p class="muted-text">Nutritional status across official Poshan Tracker age brackets.</p>
+            <div class="chart-wrapper-sm"><canvas id="cohortBarChart"></canvas></div>
+          </div>
+        </div>
+
+        <div class="two-col-grid" style="margin-top:1.25rem;">
+          <div class="glass-card top-green">
+            <h3>📈 6-Month Recovery & THR Delivery Trajectory</h3>
+            <p class="muted-text">Monthly improvement in Healthy Growth (%) alongside Take-Home Ration coverage.</p>
+            <div class="chart-wrapper-sm"><canvas id="trendLineChart"></canvas></div>
+          </div>
+          <div class="glass-card top-orange">
+            <h3>🕸️ ICDS Micronutrient & Calorie Adequacy</h3>
+            <p class="muted-text">Current fortified meal delivery vs. ICMR-NIN pediatric targets (%).</p>
+            <div class="chart-wrapper-sm"><canvas id="nutrientRadarChart"></canvas></div>
+          </div>
+        </div>
+
+        <div class="glass-card top-navy" style="margin-top:1.5rem;">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; margin-bottom:1rem;">
+            <h3>📋 All-India Child Beneficiary Directory</h3>
+            <div style="display:flex; gap:0.6rem; flex-wrap:wrap;">
+              <select id="registry-state-filter" onchange="renderRegistryTable()" style="width:auto;">
+                <option value="All">All States & UTs</option>
+              </select>
+              <select id="registry-status-filter" onchange="renderRegistryTable()" style="width:auto;">
+                <option value="All">All Statuses</option>
+                <option value="SAM">🚨 SAM Only</option>
+                <option value="MAM">⚠️ MAM Only</option>
+                <option value="Normal">✅ Normal Only</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Child Name</th>
+                  <th>Age / Gender</th>
+                  <th>District & State</th>
+                  <th>Weight / Height</th>
+                  <th>Z-Score & Status</th>
+                  <th>Clinical Note / Condition</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="registry-table-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================================================
+           VIEW 3: INTERACTIVE INDIA REGIONAL MAP
+      ========================================================== -->
+      <section id="view-india-map" class="view-section">
+        <div class="page-header">
+          <h2>🗺️ India Regional Poshan Map (Anganwadi Children 0–6 Years)</h2>
+          <p>Click any state circle on the map to inspect its Anganwadi nutrition profile, live weather, and local crops.</p>
+        </div>
+
+        <div class="filter-bar glass-card">
+          <div>
+            <label for="zone-filter">Geographical Zone</label>
+            <select id="zone-filter" onchange="renderIndiaMap()">
+              <option value="All">All India</option>
+              <option value="South">South India</option>
+              <option value="North">North India</option>
+              <option value="West">West India</option>
+              <option value="East">East India</option>
+              <option value="Central">Central India</option>
+              <option value="North-East">North-East India</option>
+            </select>
+          </div>
+          <div>
+            <label for="map-metric-select">Highlight Indicator</label>
+            <select id="map-metric-select" onchange="renderIndiaMap()">
+              <option value="normal">Healthy Growth (%)</option>
+              <option value="sam">SAM Critical Rate (%)</option>
+              <option value="thr">THR Delivery Coverage (%)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="map-layout">
+          <div class="glass-card map-container">
+            <div class="map-legend">
+              <span><i class="dot green"></i> High Healthy Growth (&gt;84%)</span>
+              <span><i class="dot orange"></i> Moderate Watch (80–84%)</span>
+              <span><i class="dot red"></i> Priority Intervention (&lt;80%)</span>
+            </div>
+            <svg id="india-svg-map" viewBox="0 0 520 560" xmlns="http://www.w3.org/2000/svg">
+              <path class="india-outline" d="M210,25 L245,35 L265,65 L250,95 L285,120 L345,145 L410,140 L465,130 L485,165 L455,205 L420,210 L395,185 L365,205 L355,255 L310,305 L275,365 L245,445 L215,525 L195,525 L170,455 L145,375 L125,305 L80,275 L65,235 L105,215 L110,175 L155,145 L175,95 L195,50 Z" />
+              <g id="map-nodes-layer"></g>
+            </svg>
+          </div>
+          <div class="glass-card region-detail-box" id="region-detail-box"></div>
+        </div>
+
+        <div class="glass-card" style="margin-top: 1.5rem;">
+          <h3>📊 State-Wise Anganwadi Child Nutrition Comparison</h3>
+          <div class="chart-wrapper"><canvas id="regionalBarChart"></canvas></div>
+        </div>
+      </section>
+
+      <!-- =========================================================
+           VIEW 4: CHILD GROWTH & CLIMATE ASSESSOR
+      ========================================================== -->
+      <section id="view-assessor" class="view-section">
+        <div class="page-header">
+          <h2>🩺 Child Growth Assessor & Beneficiary Registration</h2>
+          <p>Assess any child across India—Python fetches live district weather, computes WHO Z-scores, generates 3 tailored recipes, and saves the record to the live registry.</p>
+        </div>
+
+        <form id="assessor-form" class="glass-card top-orange" onsubmit="handleChildAssessment(event)">
+          <div class="three-col-grid">
+            <div>
+              <label>Child's Name / ID</label>
+              <input type="text" id="child-name" placeholder="e.g., Kavya R." required />
+            </div>
+            <div>
+              <label>Age (Months: 6–72)</label>
+              <input type="number" id="child-age" min="6" max="72" value="24" required />
+            </div>
+            <div>
+              <label>Gender</label>
+              <select id="child-gender">
+                <option value="Female">Female</option>
+                <option value="Male">Male</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="three-col-grid" style="margin-top: 1rem;">
+            <div>
+              <label>Height / Length (cm)</label>
+              <input type="number" id="child-height" step="0.1" min="45" max="130" value="82.0" required />
+            </div>
+            <div>
+              <label>Weight (kg)</label>
+              <input type="number" id="child-weight" step="0.1" min="2" max="30" value="9.1" required />
+            </div>
+            <div>
+              <label>Indian Town / City / District</label>
+              <input type="text" id="child-city" value="Mysuru" placeholder="e.g., Davangere, Bikaner, Patna" required />
+            </div>
+          </div>
+
+          <div class="two-col-grid" style="margin-top: 1rem;">
+            <div>
+              <label>Clinical Observation / Nutritional Issue</label>
+              <input type="text" id="child-condition" placeholder="e.g., Picky eater, Iron deficiency, Post-diarrhea recovery" />
+            </div>
+            <div style="display:flex; align-items:flex-end;">
+              <button type="submit" class="btn-primary" style="width:100%;">⚡ Run Assessment & Save to Registry</button>
+            </div>
+          </div>
+        </form>
+
+        <div id="assessor-results" style="display:none; margin-top: 1.5rem;"></div>
+      </section>
+
+      <!-- =========================================================
+           VIEW 5: AI INNOVATION LAB (RADAR & BUDGET SIMULATOR)
+      ========================================================== -->
+      <section id="view-ai-lab" class="view-section">
+        <div class="page-header">
+          <h2>🚀 AI Innovation Lab: Predictive Radar & ICDS Policy Simulator</h2>
+          <p>Preventive climate-malnutrition forecasting and rupee fortification modeling.</p>
+        </div>
+
+        <div class="two-col-grid">
+          <div class="glass-card top-orange">
+            <h3>📡 1. 14-Day Climate-Malnutrition Early Warning Radar</h3>
+            <p class="muted-text">Correlates live Open-Meteo weather telemetry with water infrastructure and SAM rates.</p>
+            <div class="form-stack">
+              <label>Target District / Town in India</label>
+              <input type="text" id="radar-city" value="Kalaburagi" />
+              <label>Current Center SAM/MAM Prevalence (%): <strong id="radar-sam-val">14.5%</strong></label>
+              <input type="range" id="radar-sam" min="2" max="35" step="0.5" value="14.5" oninput="document.getElementById('radar-sam-val').innerText=this.value+'%'" />
+              <label>Drinking Water Infrastructure</label>
+              <select id="radar-water">
+                <option value="filtered">Filtered / RO Supply</option>
+                <option value="tap" selected>Municipal Tap Water</option>
+                <option value="open">Open Well / Handpump</option>
+              </select>
+              <button class="btn-primary" onclick="runClimateRadar()">🔮 Run Predictive Climate Forecast</button>
+            </div>
+            <div id="radar-output" class="radar-result-box" style="display:none;"></div>
+          </div>
+
+          <div class="glass-card top-green">
+            <h3>🎛️ 2. "What-If" ICDS Meal Budget & Recovery Simulator</h3>
+            <p class="muted-text">Simulate how daily rupee norms and fortification accelerate SAM-to-Normal recovery.</p>
+            <div class="form-stack">
+              <label>Daily Base Meal Budget per Child: <strong id="sim-budget-val">₹9.50</strong></label>
+              <input type="range" id="sim-budget" min="6" max="18" step="0.5" value="9.5" oninput="updateBudgetSimulator()" />
+              <label class="checkbox-row">
+                <input type="checkbox" id="sim-egg" checked onchange="updateBudgetSimulator()" />
+                Add Boiled Egg / Ksheera Milk (+₹2.50/day)
+              </label>
+              <label class="checkbox-row">
+                <input type="checkbox" id="sim-millet" checked onchange="updateBudgetSimulator()" />
+                Fortify THR with Roasted Millet-Peanut Mix (+₹1.50/day)
+              </label>
+            </div>
+            <div class="sim-metrics-grid" id="sim-metrics-grid"></div>
+            <div class="chart-wrapper-sm"><canvas id="recoveryCurveChart"></canvas></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================================================
+           VIEW 6: ANGANWADI CULINARY & RECIPE BANK
+      ========================================================== -->
+      <section id="view-recipes" class="view-section">
+        <div class="page-header">
+          <h2>🍲 Anganwadi Culinary & THR Recipe Bank</h2>
+          <p>Low-cost, nutrient-dense Indian child recipes with live 1-child vs. 25-child Anganwadi batch scaling.</p>
+        </div>
+
+        <div class="filter-bar glass-card">
+          <div>
+            <label>Filter by Climate</label>
+            <select id="recipe-climate-filter" onchange="renderRecipeBank()">
+              <option value="All">All Climates</option>
+              <option value="Summer">☀️ Summer / Heatwave</option>
+              <option value="Winter">❄️ Winter / Cold</option>
+              <option value="Monsoon">🌦️ Monsoon / Immunity</option>
+            </select>
+          </div>
+          <div>
+            <label>Filter by Goal</label>
+            <select id="recipe-goal-filter" onchange="renderRecipeBank()">
+              <option value="All">All Goals</option>
+              <option value="SAM">🚨 SAM Rapid Weight Gain</option>
+              <option value="Anemia">🩸 Iron & Anemia Boost</option>
+              <option value="Maintenance">✅ Daily ICDS Maintenance</option>
+            </select>
+          </div>
+          <div>
+            <label>Serving Scale Multiplier</label>
+            <select id="recipe-scale-select" onchange="renderRecipeBank()">
+              <option value="1">👶 1 Child (Home Feeding)</option>
+              <option value="25">🏫 25 Children (Anganwadi Center Batch)</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="recipe-cards-grid" class="two-col-grid"></div>
+      </section>
+
+      <!-- =========================================================
+           VIEW 7: OFFICIAL A5 PDF HEALTH CARDS
+      ========================================================== -->
+      <section id="view-health-card" class="view-section">
+        <div class="page-header">
+          <h2>🪪 Poshan Diwas Parent Health Card Generator (PDF)</h2>
+          <p>Select any child from the all-India registry to preview and download a print-ready A5 counseling health card.</p>
+        </div>
+
+        <div class="two-col-grid">
+          <div class="glass-card top-navy">
+            <h3>Select Beneficiary Child</h3>
+            <select id="pdf-child-select" onchange="renderHealthCardPreview()"></select>
+            <button class="btn-primary" style="margin-top:1rem; width:100%;" onclick="downloadChildHealthCardPDF()">
+              📥 Download Official A5 Health Card (.PDF)
+            </button>
+            <p class="muted-text" style="margin-top:0.75rem;">
+              Tip: Upload this downloaded PDF into <b>Poshan Sahayak AI</b> to discuss personalized meal adjustments!
+            </p>
+          </div>
+          <div class="glass-card" id="health-card-preview"></div>
+        </div>
+      </section>
+
+      <!-- =========================================================
+           VIEW 8: POSHAN SAHAYAK AI CHATBOT + HEALTH CARD ANALYZER
+      ========================================================== -->
+      <section id="view-chatbot" class="view-section">
+        <div class="page-header">
+          <h2>💬 Poshan Sahayak — Conversational Child Nutrition Counselor</h2>
+          <p>Discuss any child's symptoms, age/weight metrics, or local diets—or upload a PDF/TXT Health Card for personalized counseling.</p>
+        </div>
+
+        <div class="chat-toolbar glass-card">
+          <div class="upload-zone">
+            <label for="card-upload-input" class="upload-btn">📎 Upload Health Card (.PDF / .TXT)</label>
+            <input type="file" id="card-upload-input" accept=".pdf,.txt" onchange="handleHealthCardUpload(event)" hidden />
+            <span id="active-card-badge" class="card-context-pill" style="display:none;"></span>
+            <button id="clear-card-btn" class="btn-tiny" style="display:none;" onclick="clearUploadedCard()">✕ Clear Card</button>
+          </div>
+
+          <details class="api-toggle">
+            <summary>⚙️ Optional: Connect Live Groq LLM</summary>
+            <div class="api-input-row">
+              <input type="password" id="groq-api-key" placeholder="Paste gsk_... key (optional)" />
+              <button class="btn-tiny" onclick="saveGroqKey()">Save</button>
+            </div>
+          </details>
+        </div>
+
+        <div class="starter-chips">
+          <button onclick="sendQuickPrompt('My 18-month-old in Bihar weighs 7.2 kg, is 78 cm tall, and has loose motions. What should we do?')">🩺 Analyze a child with loose motions</button>
+          <button onclick="sendQuickPrompt('Suggest a ₹8 summer meal plan for a 2-year-old in Rajasthan')">☀️ ₹8 Summer meal in Rajasthan</button>
+          <button onclick="sendQuickPrompt('Tell me about Rohan M. from our registry and how to help him recover')">📋 Review Rohan M. from registry</button>
+          <button onclick="sendQuickPrompt('Explain WHO Z-score cutoffs for SAM and MAM in simple terms')">📏 Explain SAM vs MAM</button>
+        </div>
+
+        <div class="chat-container glass-card">
+          <div class="chat-messages" id="chat-messages"></div>
+          <form class="chat-input-form" onsubmit="handleChatSubmit(event)">
+            <input type="text" id="chat-user-input" placeholder="Tell me about a child's age, weight, symptoms, or ask any nutrition question..." autocomplete="off" required />
+            <button type="submit" class="btn-primary">Send ➤</button>
+          </form>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/data.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/chatbot.js') }}"></script>
+</body>
+</html>
